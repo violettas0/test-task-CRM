@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
     StyledInput,
-    StyledUl,
+    StyledFormUl,
     StyledLabel,
     StyledForm,
     StyledFieldset,
@@ -41,9 +41,9 @@ class ContractForm extends Component {
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel>Подключенные услуги:</StyledLabel>
-                    <StyledUl>
+                    <StyledFormUl>
                         {services}
-                    </StyledUl>
+                    </StyledFormUl>
                 </StyledForm>
                 <StyledP/>
                 <StyledForm>

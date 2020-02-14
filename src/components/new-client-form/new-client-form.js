@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {clientChange, clientClose} from "../../modules/clients-form/client-form-actions"
-import {StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton} from "../styled/styled-form"
+import {
+    StyledInput,
+    StyledFormUl,
+    StyledLabel,
+    StyledForm,
+    StyledFieldset,
+    StyledText,
+    StyledCloseButton,
+    StyledButtonAddContract,
+    StyledButtonSaveChanges,
+    StyledContainerButton
+} from "../styled/styled-form"
 import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
 import {clientsInfoLoaded} from "../../modules/clients-load/clients-load-actions";
@@ -23,7 +34,7 @@ class NewClientForm extends Component {
         let newData = [...this.props.clientsInfo];
         let newClient = {};
         for (let key in this.props.form) {
-            if (key=="form" || key=="newForm") {
+            if (key == "form" || key == "newForm") {
                 continue
             }
             newClient = {...newClient, [key]: this.props.form[key]}
@@ -66,10 +77,14 @@ class NewClientForm extends Component {
                     <StyledText onChange={this.handleChange} id="additionalInfo" className="client-data"
                                 value={this.props.additionalInfo}/>
                     <StyledLabel id="service-objects">Список объектов на обслуживание:</StyledLabel>
-                    <StyledUl>
-                    </StyledUl>
-                    <button onClick={this.handleButtonClick}>Добавить договор</button>
-                    <button onClick={(e) => this.saveChanges(e, this.props.form.id)}>Сохранить изменения</button>
+                    <StyledFormUl>
+                    </StyledFormUl>
+                    <StyledContainerButton>
+                        <StyledButtonAddContract onClick={this.handleButtonClick}>Добавить
+                            договор</StyledButtonAddContract>
+                        <StyledButtonSaveChanges onClick={(e) => this.saveChanges(e, this.props.form.id)}>Сохранить
+                            изменения</StyledButtonSaveChanges>
+                    </StyledContainerButton>
                 </StyledForm>
             </StyledFieldset>
         )

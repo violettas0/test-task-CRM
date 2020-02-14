@@ -3,12 +3,15 @@ import {connect} from "react-redux";
 import {clientChange, clientClose} from "../../modules/clients-form/client-form-actions"
 import {
     StyledInput,
-    StyledUl,
+    StyledFormUl,
     StyledLabel,
     StyledForm,
     StyledFieldset,
     StyledText,
-    StyledCloseButton
+    StyledCloseButton,
+    StyledButtonAddContract,
+    StyledButtonSaveChanges,
+    StyledContainerButton
 } from "../styled/styled-form"
 import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
@@ -86,11 +89,16 @@ class ClientForm extends Component {
                     <StyledText onChange={this.handleChange} id="additionalInfo" className="client-data"
                                 value={this.props.form.additionalInfo ? this.props.form.additionalInfo : clientInfo.additionalInfo}/>
                     <StyledLabel id="service-objects">Список объектов на обслуживание:</StyledLabel>
-                    <StyledUl>
+                    <StyledFormUl>
                         {objects}
-                    </StyledUl>
-                    <button onClick={this.handleButtonClick}>Добавить договор</button>
-                    <button onClick={(e) => this.saveChanges(clientInfo.id, e)}>Сохранить изменения</button>
+                    </StyledFormUl>
+                    <StyledContainerButton>
+                        <StyledButtonAddContract onClick={this.handleButtonClick}>Добавить
+                            договор</StyledButtonAddContract>
+                        <StyledButtonSaveChanges onClick={(e) => this.saveChanges(clientInfo.id, e)}>Сохранить
+                            изменения</StyledButtonSaveChanges>
+                    </StyledContainerButton>
+
                 </StyledForm>
             </StyledFieldset>
         )

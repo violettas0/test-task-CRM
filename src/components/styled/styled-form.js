@@ -91,14 +91,22 @@ const StyledLabel = styled.label`
 `;
 
 
-const StyledUl = styled.ul`
-  margin: 0;
+const StyledFormUl = styled.ul`
+  margin: 0 0 15px;
   padding: 0;
   list-style: none;
   font-family: Roboto, sans-serif;
   font-weight: bold;
   font-size: 18px;
+  text-align: start;
+  cursor: pointer;
   color: #2f5395;
+  li {
+    margin-bottom: 5px;
+    &:hover {
+        color: #44a757;
+    }
+  }
 `;
 
 const StyledCloseButton = styled.button`
@@ -126,4 +134,60 @@ const StyledP = styled.p`
   letter-spacing: 0.01em;
 `;
 
-export { StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton, StyledP }
+const StyledButtonAddContract = styled.button`
+  color: #2f5395;
+  padding: 10px 0;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 50px;
+  width: 48%;
+  border: 3px solid #2f5395;
+  background-color: transparent;
+  font-size: 18px;
+  &:focus {
+      color: #ffffff;
+      background-color: #2f5395;
+      border: none;
+  }
+`;
+
+const StyledButtonSaveChanges = styled.button`
+  color: #44a757;
+  padding: 10px 0;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 50px;
+  width: 48%;
+  border: 3px solid #44a757;
+  background-color: transparent;
+  font-size: 18px;
+  &:focus {
+      color: #ffffff;
+      background-color: #44a757;
+      border: none;
+  }
+`;
+
+const StyledContainerButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export {
+    StyledInput,
+    StyledFormUl,
+    StyledLabel,
+    StyledForm,
+    StyledFieldset,
+    StyledText,
+    StyledCloseButton,
+    StyledP,
+    StyledButtonAddContract,
+    StyledButtonSaveChanges,
+    StyledContainerButton
+}
