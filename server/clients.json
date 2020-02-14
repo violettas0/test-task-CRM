@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Артёмий",
+    "lastName": "Смирнов",
+    "middleName": "Артёмович",
+    "email": "aasmirnow@gmail.com",
+    "phoneNumber": "+7 (848) 469-3050",
+    "city": "Москва",
+    "additionalInfo": "Ценит скорость ответа.",
+    "objectsToServe": ["Авто", "Авто"],
+    "_id": "5e43c5c61658f293b9833511"
+  },
+  {
+    "name": "Мария",
+    "lastName": "Верещанова",
+    "middleName": "Олеговна",
+    "email": "mariavera@gmail.com",
+    "phoneNumber": "+7 (922) 558-2882",
+    "city": "Калуга",
+    "additionalInfo": "Любит свою машину до безумия.",
+    "objectsToServe": ["Авто"],
+    "_id": "5e43c5c6c3f9cf6e9db7cd95"
+  },
+  {
+    "name": "Сергей",
+    "lastName": "Терещенко",
+    "middleName": "Павлович",
+    "email": "stpavl@gmail.com",
+    "phoneNumber": "+7 (851) 418-3277",
+    "city": "Саратов",
+    "additionalInfo": "Не хочет вдаваться в подробности.",
+    "objectsToServe": ["Недвижимость"],
+    "_id": "5e43c5c65fd8e61073dc85d0"
+  },
+  {
+    "name": "Анастасия",
+    "lastName": "Мирская",
+    "middleName": "Алексеевна",
+    "email": "nastya8965@gmail.com",
+    "phoneNumber": "+7 (917) 481-2765",
+    "city": "Воркута",
+    "additionalInfo": "Высокое качество для неё - главное",
+    "objectsToServe": ["Авто", "Недвижимость"],
+    "_id": "5e43c5c6474781fc3bbaa818"
+  },
+  {
+    "name": "Ольга",
+    "lastName": "Византийская",
+    "middleName": "Игоревна",
+    "email": "olenkai@gmail.com",
+    "phoneNumber": "+7 (933) 517-2564",
+    "city": "Новосибирск",
+    "additionalInfo": "Имеет взрывной характер.",
+    "objectsToServe": ["Недвижимость"],
+    "_id": "5e43c5c6379f760935847474"
+  },
+  {
+    "name": "Дмитрий",
+    "lastName": "Заводской",
+    "middleName": "Дмитриевич",
+    "email": "dmitryzavodr@yandex.ru",
+    "phoneNumber": "+7 (930) 585-3821",
+    "city": "Владивосток",
+    "additionalInfo": "В любом случае, можно договориться.",
+    "objectsToServe": ["Авто"],
+    "_id": "5e43c5c695c339c20e4c2319"
+  },
+  {
+    "name": "Максим",
+    "lastName": "Романов",
+    "middleName": "Тихонович",
+    "email": "romanovmaxims@yandex.ru",
+    "phoneNumber": "+7 (913) 488-3697",
+    "city": "Санкт-Петербург",
+    "additionalInfo": "Не разбирается и готов платить большие деньги.",
+    "objectsToServe": ["Авто", "Недвижимость"],
+    "_id": "5e43c5c6a51f2ad28a222e18"
+  },
+  {
+    "name": "Алёна",
+    "lastName": "Несмеянова",
+    "middleName": "Ивановна",
+    "email": "alyonanolaughn@yandex.ru",
+    "phoneNumber": "+7 (948) 583-3836",
+    "city": "Нижний Новгород",
+    "additionalInfo": "Общение не должно выходить за рамки договора.",
+    "objectsToServe": ["Недвижимость"],
+    "_id": "5e43c5c6336042addd0586da"
+  }
+]
