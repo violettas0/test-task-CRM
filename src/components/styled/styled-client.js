@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import Line from "../../assets/img/line.png";
+import VerticalLine from "../../assets/img/verticalline.png";
+
 const StyledDiv = styled.div`
   display: flex;
   box-sizing: border-box;
@@ -7,7 +10,7 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   flex-shrink: 0;
   padding: 30px;
-  margin: 50px 100px 50px 100px;
+  margin: 50px;
   width: 650px;
   max-height: 410px;
   font-family: "Roboto Light", sans-serif;
@@ -37,7 +40,7 @@ const StyledContainerMainInfo = styled.div`
       width: 3px;
       right: -64px;
       top: -23px;
-      background-image: url("../../assets/img/verticalline.png");
+      background-image: url(${VerticalLine});
       background-color: #f1f1f1;
   };
 `;
@@ -69,7 +72,7 @@ const StyledInfo = styled.span`
     props.isSecond ? props.positions.second : props.positions.first};
       bottom: -9px;
       margin-left: calc(-175px / 2);
-      background-image: url("../../assets/img/line.png");
+      background-image: url(${Line});
       background-color: #e8e8e8;
   };
 `;

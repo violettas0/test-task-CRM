@@ -1,0 +1,3 @@
+const SEARCH_SUCCESS = "SEARCH_SUCCESS";
+
+export {SEARCH_SUCCESS};

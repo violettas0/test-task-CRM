@@ -1,19 +1,13 @@
 import React from 'react';
-import Client from "../client/client";
-import ClientList from "../client-list/client-list";
-import styled from "styled-components";
+import ClientList from "../client-list";
 import AddClientButton from "../add-client-button";
-
-const StyledDiv = styled.div`
-   
-`;
 
 function App() {
     return (
-        <StyledDiv>
+        <div>
             <ClientList/>
             <AddClientButton/>
-        </StyledDiv>
+        </div>
     );
 }
 

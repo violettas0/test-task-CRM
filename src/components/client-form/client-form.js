@@ -1,136 +1,78 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {clientChange, clientForm} from "../../../actions/actions"
-import styled from "styled-components";
-
-const StyledFieldset = styled.fieldset`
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-  padding: 30px;
-  margin: 25px auto;
-  width: 650px;
-  font-family: "Roboto Light", sans-serif;
-  color: #0B0A07;
-  border: none;
-  background-color: #ffffff;
-  box-shadow: 20px 14px 45px -6px rgba(0, 0, 0, 0.1);
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-  text-align: center;
-  width: 250px;
-`;
-
-
-const StyledInput = styled.input`
-  display: inline-block;
-  position: relative;
-  margin-bottom: 13px;
-  font-family: Roboto, sans-serif;
-  font-weight: bold;
-  font-size: 18px;
-  color: #000000;
-  background-color: transparent;
-  border: 3px solid #f1f1f1;
-  word-break: break-word;
-  width: fit-content;
-  &::after {
-      content: '';
-      position: absolute;
-      width: 175px;
-      height: 3px;
-      left: 3px;
-      bottom: -9px;
-      background-image: url("../../assets/img/line.png");
-      background-color: #e8e8e8;
-  };
-`;
-
-const StyledText = styled.textarea`
-  display: inline-block;
-  position: relative;
-  margin-bottom: 13px;
-  font-family: Roboto, sans-serif;
-  font-weight: bold;
-  font-size: 18px;
-  color: #000000;
-  background-color: transparent;
-  border: 3px solid #f1f1f1;
-  word-break: break-word;
-  width: 25px;
-  height: 15px;
-  resize: none;
-  &::after {
-      content: '';
-      position: absolute;
-      width: 175px;
-      height: 3px;
-      left: 3px;
-      bottom: -9px;
-      background-image: url("../../assets/img/line.png");
-      background-color: #e8e8e8;
-  };
-`;
-
-const StyledLabel = styled.label`
-  margin-bottom: 3px;
-  width: fit-content;
-  font-family: Roboto, sans-serif;
-  text-transform: uppercase;
-  color: #2f2f2f;
-  font-size: 18px;
-  letter-spacing: 0.01em;
-`;
-
-
-const StyledUl = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: Roboto, sans-serif;
-  font-weight: bold;
-  font-size: 18px;
-  color: #2f5395;
-`;
+import {clientChange, clientClose} from "../../modules/clients-form/form-actions"
+import {StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton} from "../styled/styled-form"
+import withCRMService from "../hoc/with-crm-service";
+import CRMService from "../../services/crm-service";
+import {clientsInfoLoaded} from "../../modules/clients-load/load-actions";
 
 class ClientForm extends Component {
-    handleChange = (e) => {
-        this.props.dispatch(clientChange(e.target.value))
+    crmService = new CRMService();
+
+    openContract = () => {
+
     };
+
+    handleCloseButton = () => {
+        this.props.dispatch(clientClose());
+    };
+    handleChange = (e) => {
+        this.props.dispatch(clientChange(e.target.id, e.target.value))
+    };
+
+    saveChanges = (id, e) => {
+        e.preventDefault();
+        let newData = [...this.props.clientsInfo];
+        for (let client of newData) {
+            if (id === client.id) {
+                Object.keys(client).forEach((data) => {
+                    if (client[data] !== this.props.form[data] && this.props.form[data] !== undefined) {
+                        client[data] = this.props.form[data];
+                    }
+                })
+            }}
+        this.crmService.postJSON(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
+    };
+
     render() {
-        let { clientInfo } = this.props;
+        let {clientInfo} = this.props;
+        let objects;
+        if (clientInfo.objectsToServe) {
+            objects = clientInfo.objectsToServe.map((object) => <li onClick={this.openContract} key={Math.floor(Math.random() * 100)}>{object}</li>)
+        } else {
+            objects = <li>Добавьте объект.</li>
+        }
         return (
             <StyledFieldset className="clientInfo">
                 <StyledForm>
+                    <StyledCloseButton onClick={this.handleCloseButton}>Закрыть</StyledCloseButton>
                     <StyledLabel id="lastName">Фамилия:</StyledLabel>
                     <StyledInput onChange={this.handleChange} type="text" id="lastName" className="client-data"
-                                 value={this.props.value ? this.props.value : clientInfo.lastName}/>
+                                 value={this.props.form.lastName ? this.props.form.lastName : clientInfo.lastName}/>
                     <StyledLabel id="name">Имя:</StyledLabel>
-                    <StyledInput onChange={this.handleChange} type="text" id="name" className="client-data" value={this.props.value ? this.props.value : clientInfo.name}/>
+                    <StyledInput onChange={this.handleChange} type="text" id="name" className="client-data"
+                                 value={this.props.form.name ? this.props.form.name : clientInfo.name}/>
                     <StyledLabel id="middleName">Отчество:</StyledLabel>
                     <StyledInput onChange={this.handleChange} type="text" id="middleName" className="client-data"
-                                 value={this.props.value ? this.props.value : clientInfo.middleName}/>
+                                 value={this.props.form.middleName ? this.props.form.middleName : clientInfo.middleName}/>
                     <StyledLabel id="phoneNumber">Телефон:</StyledLabel>
                     <StyledInput onChange={this.handleChange} type="tel" id="phoneNumber" className="client-data"
-                                 value={this.props.value ? this.props.value : clientInfo.phoneNumber}/>
+                                 value={this.props.form.phoneNumber ? this.props.form.phoneNumber : clientInfo.phoneNumber}/>
                     <StyledLabel id="email">Email:</StyledLabel>
-                    <StyledInput onChange={this.handleChange} type="email" id="email" className="client-data" value={this.props.value ? this.props.value : clientInfo.email}/>
+                    <StyledInput onChange={this.handleChange} type="email" id="email" className="client-data"
+                                 value={this.props.form.email ? this.props.form.email : clientInfo.email}/>
                     <StyledLabel id="city">Город проживания:</StyledLabel>
-                    <StyledInput onChange={this.handleChange} type="text" id="city" className="client-data" value={this.props.value ? this.props.value : clientInfo.city}/>
+                    <StyledInput onChange={this.handleChange} type="text" id="city" className="client-data"
+                                 value={this.props.form.city ? this.props.form.city : clientInfo.city}/>
                     <StyledLabel id="additionalInfo">Дополнительная информация:</StyledLabel>
                     <StyledText onChange={this.handleChange} id="additionalInfo" className="client-data"
-                                value={this.props.value ? this.props.value : clientInfo.additionalInfo}/>
+                                value={this.props.form.additionalInfo ? this.props.form.additionalInfo : clientInfo.additionalInfo}/>
                     <StyledLabel id="service-objects">Список объектов на обслуживание:</StyledLabel>
                     <StyledUl>
-                        {clientInfo.objectsToServe.map((object) => <li
-                            key={Math.floor(Math.random() * 100)}>{object}</li>)}
+                        {objects}
                     </StyledUl>
+                    <button onClick={this.handleButtonClick}>Добавить договор</button>
+                    <button onClick={(e) => this.saveChanges(clientInfo.id, e)}>Сохранить изменения</button>
                 </StyledForm>
             </StyledFieldset>
         )
@@ -139,9 +81,10 @@ class ClientForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        value: state.value
+        form: state.form,
+        clientsInfo: state.load.clientsInfo
     }
 };
 
 
-export default connect(mapStateToProps)(ClientForm);
+export default withCRMService(connect(mapStateToProps)(ClientForm));

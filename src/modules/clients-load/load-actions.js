@@ -1,11 +1,11 @@
-import { clientsLoadType, clientsReqType, clientsLoadErrorType, clientChangeType, clientFormType } from '../types/types'
+import { clientsLoadErrorType, clientsReqType, clientsLoadType } from "./load-types"
 
 const clientsInfoLoaded = (clients) => {
     return {type: clientsLoadType, payload: clients};
 };
 
 const clientsRequested = () => {
-    return {type: clientsReqType }
+    return {type: clientsReqType}
 };
 
 const clientsLoadingError = (error) => {
@@ -14,4 +14,4 @@ const clientsLoadingError = (error) => {
 
 
 
-export { clientsInfoLoaded, clientsRequested, clientsLoadingError, clientForm, clientChange }
+export { clientsInfoLoaded, clientsRequested, clientsLoadingError }

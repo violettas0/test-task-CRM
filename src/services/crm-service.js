@@ -10,7 +10,16 @@ export default class CRMService {
     }
     async getClientsInfo() {
         const url = `api/clients`;
-        const clients = await CRMService.getJSON(url);
-        return clients.map((client) => client);
+        return await CRMService.getJSON(url)
+    }
+    async postJSON(data) {
+        const response = await fetch(`/api/clients`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await response.json();
     }
 }

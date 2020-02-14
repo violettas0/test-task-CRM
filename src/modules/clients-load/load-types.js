@@ -1,5 +1,5 @@
-const clientsLoadType = 'CLIENTS_LOADED';
-const clientsReqType = 'CLIENTS_REQUESTED';
-const clientsLoadErrorType = 'CLIENTS_LOADING_ERROR';
+const clientsLoadType = 'FETCH_CLIENTS_SUCCESS';
+const clientsReqType = 'FETCH_CLIENTS_REQUESTED';
+const clientsLoadErrorType = 'FETCH_CLIENTS_FAILURE';
 
 export { clientsLoadType, clientsReqType, clientsLoadErrorType }

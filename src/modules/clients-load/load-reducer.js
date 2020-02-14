@@ -4,30 +4,21 @@ const initialState = {
      errorObject: null,
  };
 
-export const loadReducer = (state = initialState, action) => {
+export default function loadReducer(state = initialState, action)  {
     switch (action.type) {
-        case "CLIENT_CHANGE":
-            return {...state,
-                value: action.payload
-            };
-        case "CLIENT_FORM":
-            return {...state,
-                id: action.payload,
-                form: true
-            };
-        case "CLIENTS_LOADING_ERROR":
+        case "FETCH_CLIENTS_FAILURE":
             return {...state,
                 clientsInfo: [],
                 isLoading: false,
                 errorObject: action.payload
             };
-        case "CLIENTS_REQUESTED":
+        case "FETCH_CLIENTS_REQUESTED":
             return {...state,
                 isLoading: true,
                 errorObject: null
             };
 
-        case "CLIENTS_LOADED":
+        case "FETCH_CLIENTS_SUCCESS":
             return {...state,
                 clientsInfo: action.payload,
                 isLoading: false,
