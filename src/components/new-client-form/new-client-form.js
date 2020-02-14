@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {clientChange, clientClose} from "../../modules/clients-form/form-actions"
+import {clientChange, clientClose} from "../../modules/clients-form/client-form-actions"
 import {StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton} from "../styled/styled-form"
 import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
-import {clientsInfoLoaded} from "../../modules/clients-load/load-actions";
+import {clientsInfoLoaded} from "../../modules/clients-load/clients-load-actions";
 
 
 class NewClientForm extends Component {
@@ -23,7 +23,7 @@ class NewClientForm extends Component {
         let newData = [...this.props.clientsInfo];
         let newClient = {};
         for (let key in this.props.form) {
-            if (key=="form") {
+            if (key=="form" || key=="newForm") {
                 continue
             }
             newClient = {...newClient, [key]: this.props.form[key]}
@@ -78,8 +78,8 @@ class NewClientForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        form: state.form,
-        clientsInfo: state.load.clientsInfo
+        form: state.formClients,
+        clientsInfo: state.loadClients.clientsInfo
     }
 };
 

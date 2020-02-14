@@ -11,23 +11,15 @@ import {
     StyledP
 } from "../styled/styled-form"
 import {objectClose} from "../../modules/contract-form/contract-form-actions";
-import moment from 'moment';
 
-class ContractForm extends Component {
+class NewContractForm extends Component {
     closeButton = () => {
         this.props.dispatch(objectClose());
     };
     render() {
-        let { contractInfo } = this.props;
-        let contractInf = contractInfo[0];
-        let services;
-        if (contractInf.services) {
-            services = contractInf.services.map((service) => {return <li key={Math.floor(Math.random()*10)}>{service}</li>});
-        }
-        console.log(contractInf.endDate);
         return (
             <StyledFieldset>
-                <button onClick={this.closeButton}>Закрыть</button>
+                <StyledCloseButton onClick={this.closeButton}>Закрыть</StyledCloseButton>
                 <StyledForm>
                     <StyledP>Тип объекта обслуживания:</StyledP>
                     <StyledLabel id="typeOfObjectAuto">Авто</StyledLabel>
@@ -37,7 +29,7 @@ class ContractForm extends Component {
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel id="contractId">Номер договора:</StyledLabel>
-                    <StyledInput id="contractId" type="number" value={contractInf.contractId}/>
+                    <StyledInput id="contractId" type="number" value={contractInfo.contractId}/>
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel>Подключенные услуги:</StyledLabel>
@@ -57,9 +49,9 @@ class ContractForm extends Component {
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel id="dateActivate">Дата подключения:</StyledLabel>
-                    <StyledInput id="dateActivate" type="date" value={moment(contractInf.startDate, moment.HTML5_FMT.DATE).format('YYYY-MM-DD')}/>
+                    <StyledInput id="dateActivate" type="date"/>
                     <StyledLabel id="dateOff">Действует до:</StyledLabel>
-                    <StyledInput id="dateOff" type="date" value={moment(contractInf.endDate, moment.HTML5_FMT.DATE).format('YYYY-MM-DD')}/>
+                    <StyledInput id="dateOff" type="date"/>
                 </StyledForm>
             </StyledFieldset>
         )
@@ -67,4 +59,4 @@ class ContractForm extends Component {
 
 }
 
-export default connect()(ContractForm);
+export default connect()(NewContractForm);

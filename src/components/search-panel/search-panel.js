@@ -8,10 +8,12 @@ const StyledInput = styled.input`
     position: absolute;
     font-family: Roboto, sans-serif;
     font-size: 18px;
+    width: fit-content;
     border: dashed 2px #2f2f2f;
     z-index: 10000;
     margin: 10px 50px;
     padding-left: 5px;
+    background-color: #ffffff;
     transition: border 1s ease-in-out;
     &:focus {
         outline: none;
@@ -38,7 +40,7 @@ class SearchPanel extends Component {
 const mapStateToProps = (state) => {
     return {
         searchValue: state.search.searchValue,
-        clientsInfo: state.load.clientsInfo
+        clientsInfo: state.loadClients.clientsInfo
     }
 };
 

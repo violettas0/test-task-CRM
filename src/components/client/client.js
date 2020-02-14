@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {clientForm} from "../../modules/clients-form/form-actions"
+import {clientForm} from "../../modules/clients-form/client-form-actions"
 import {
     StyledLabel,
     StyledDiv,
@@ -21,7 +21,8 @@ class Client extends Component {
         let {clientInfo} = this.props;
         let objects;
         if (clientInfo.objectsToServe) {
-            objects = clientInfo.objectsToServe.map((object) => <li key={Math.floor(Math.random() * 100)}>{object}</li>)
+            objects = clientInfo.objectsToServe.map((object) => <li data-id={Object.values(object)[0]}
+                                                                    key={Math.floor(Math.random() * 201920)}>{Object.keys(object)[0]}</li>)
         } else {
             objects = <li>Добавьте объект.</li>
         }
@@ -57,8 +58,8 @@ class Client extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        form: state.form.form,
-        clientId: state.form.id
+        form: state.formClients.form,
+        clientId: state.formClients.id
     }
 };
 

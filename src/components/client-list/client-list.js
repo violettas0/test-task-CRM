@@ -2,13 +2,14 @@ import React, {Component} from "react";
 import Client from "../client/client";
 import withCRMService from "../hoc/with-crm-service";
 import {connect} from "react-redux";
-import {clientsInfoLoaded, clientsRequested, clientsLoadingError} from "../../modules/clients-load/load-actions"
+import {clientsInfoLoaded, clientsRequested, clientsLoadingError} from "../../modules/clients-load/clients-load-actions"
 import styled from "styled-components";
 import Loader from "../loader";
 import ErrorIndicator from "../error-indicator";
 import ClientForm from "../client-form/client-form";
 import NewClientForm from "../new-client-form";
 import SearchPanel from "../search-panel";
+import ContractForm from "../contract-form";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -35,11 +36,11 @@ class ClientList extends Component {
     }
 
     render() {
-        let { clientsInfo, isLoading, errorObject, form, clientId, filteredInfo, searching } = this.props;
+        let {clientsInfo, isLoading, errorObject, form, clientId, filteredInfo, searching, isNeedToOpen, contractInfo, newForm} = this.props;
 
         let clientsRender = (info) => {
             return info.map((client) => {
-                return (<Client key={Math.floor(Math.random()*1000)} clientInfo={client}/>)
+                return (<Client key={Math.floor(Math.random() * 1000)} clientInfo={client}/>)
             })
         };
 
@@ -59,8 +60,11 @@ class ClientList extends Component {
                     return <ClientForm clientInfo={key}/>
                 }
             }
+        }
+        if (newForm) {
             return (<NewClientForm/>)
         }
+
 
         let render = clientsInfo;
         let failSearch;
@@ -84,19 +88,22 @@ class ClientList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        clientsInfo: state.load.clientsInfo,
-        isLoading: state.load.isLoading,
-        errorObject: state.load.errorObject,
-        form: state.form.form,
-        clientId: state.form.id,
+        clientsInfo: state.loadClients.clientsInfo,
+        isLoading: state.loadClients.isLoading,
+        errorObject: state.loadClients.errorObject,
+        form: state.formClients.form,
+        newForm: state.formClients.newForm,
+        clientId: state.formClients.id,
         filteredInfo: state.search.filteredInfo,
-        searching: state.search.search
+        searching: state.search.search,
+        isNeedToOpen: state.openContract.isNeedToOpen,
+        contractInfo: state.openContract.contractInfo
     }
 
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    let { CRMService } = ownProps;
+    let {CRMService} = ownProps;
     return {
         fetchClients: () => {
             dispatch(clientsRequested());

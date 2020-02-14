@@ -4,7 +4,7 @@ const initialState = {
      errorObject: null,
  };
 
-export default function loadReducer(state = initialState, action)  {
+export default function clientsLoadReducer(state = initialState, action)  {
     switch (action.type) {
         case "FETCH_CLIENTS_FAILURE":
             return {...state,

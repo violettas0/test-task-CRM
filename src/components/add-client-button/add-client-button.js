@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { clientForm } from "../../modules/clients-form/form-actions"
+import { clientNewForm } from "../../modules/clients-form/client-form-actions"
 
 const StyledButton = styled.button`
   position: fixed;
@@ -66,18 +66,13 @@ const StyledButton = styled.button`
 
 function AddClientButton({dispatch}) {
     const handleClick = () => {
-        return dispatch(clientForm(Math.floor(Math.random()*130020)))
+        return dispatch(clientNewForm(Math.floor(Math.random()*130020)))
     };
     return (
         <StyledButton onClick={handleClick}>Добавить клиента</StyledButton>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        form: state.form.form
-    }
-};
 
 
-export default connect(mapStateToProps)(AddClientButton)
+export default connect()(AddClientButton)

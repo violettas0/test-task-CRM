@@ -1,16 +1,31 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {clientChange, clientClose} from "../../modules/clients-form/form-actions"
-import {StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton} from "../styled/styled-form"
+import {clientChange, clientClose} from "../../modules/clients-form/client-form-actions"
+import {
+    StyledInput,
+    StyledUl,
+    StyledLabel,
+    StyledForm,
+    StyledFieldset,
+    StyledText,
+    StyledCloseButton
+} from "../styled/styled-form"
 import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
-import {clientsInfoLoaded} from "../../modules/clients-load/load-actions";
+import {clientsInfoLoaded} from "../../modules/clients-load/clients-load-actions";
+import {objectInfoLoaded} from "../../modules/contract-load/contract-load-actions";
+import {objectOpen} from "../../modules/contract-form/contract-form-actions";
 
 class ClientForm extends Component {
     crmService = new CRMService();
 
-    openContract = () => {
+    componentDidMount() {
+        this.crmService.getObjectInfo().then(r => this.props.dispatch(objectInfoLoaded(r)));
+    }
 
+    openContract = (e) => {
+        let object = this.props.objects.filter((obj) => obj.contractId.toString() === e.target.dataset.id);
+        this.props.dispatch(objectOpen(object));
     };
 
     handleCloseButton = () => {
@@ -30,7 +45,8 @@ class ClientForm extends Component {
                         client[data] = this.props.form[data];
                     }
                 })
-            }}
+            }
+        }
         this.crmService.postJSON(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
     };
 
@@ -38,9 +54,11 @@ class ClientForm extends Component {
         let {clientInfo} = this.props;
         let objects;
         if (clientInfo.objectsToServe) {
-            objects = clientInfo.objectsToServe.map((object) => <li onClick={this.openContract} key={Math.floor(Math.random() * 100)}>{object}</li>)
+            objects = clientInfo.objectsToServe.map((object) => <li onClick={(e) => this.openContract(e)}
+                                                                    data-id={Object.values(object)[0]}
+                                                                    key={Math.floor(Math.random() * 201920)}>{Object.keys(object)[0]}</li>)
         } else {
-            objects = <li>Добавьте объект.</li>
+            objects = <li>Добавьте объект обслуживания.</li>
         }
         return (
             <StyledFieldset className="clientInfo">
@@ -81,8 +99,9 @@ class ClientForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        form: state.form,
-        clientsInfo: state.load.clientsInfo
+        form: state.formClients,
+        clientsInfo: state.loadClients.clientsInfo,
+        objects: state.loadContract.objectsInfo
     }
 };
 
