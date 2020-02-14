@@ -1,11 +1,11 @@
-import {CLIENT_FORM_CLOSE, clientChangeType, clientFormType} from "./form-types";
+import {CLIENT_FORM_OPEN, CLIENT_FORM_CHANGE, CLIENT_FORM_CLOSE} from "./form-types";
 
 const clientForm = (id) => {
-    return {type: clientFormType, payload: id}
+    return {type: CLIENT_FORM_OPEN, payload: id}
 };
 
 const clientChange = (name, value) => {
-    return {type: clientChangeType, payload: [name, value]}
+    return {type: CLIENT_FORM_CHANGE, payload: [name, value]}
 };
 
 const clientClose = () => {

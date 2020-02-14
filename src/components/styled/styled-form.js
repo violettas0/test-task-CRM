@@ -116,4 +116,14 @@ const StyledCloseButton = styled.button`
   background-color: transparent;
 `;
 
-export { StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton }
+const StyledP = styled.p`
+  margin-bottom: 3px;
+  width: fit-content;
+  font-family: Roboto, sans-serif;
+  text-transform: uppercase;
+  color: #2f2f2f;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+`;
+
+export { StyledInput, StyledUl, StyledLabel, StyledForm, StyledFieldset, StyledText, StyledCloseButton, StyledP }

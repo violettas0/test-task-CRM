@@ -1,15 +1,15 @@
-import { clientsLoadErrorType, clientsReqType, clientsLoadType } from "./load-types"
+import { FETCH_CLIENTS_SUCCESS, FETCH_CLIENTS_REQUESTED, FETCH_CLIENTS_FAILURE  } from "./load-types"
 
 const clientsInfoLoaded = (clients) => {
-    return {type: clientsLoadType, payload: clients};
+    return {type: FETCH_CLIENTS_SUCCESS, payload: clients};
 };
 
 const clientsRequested = () => {
-    return {type: clientsReqType}
+    return {type: FETCH_CLIENTS_REQUESTED}
 };
 
 const clientsLoadingError = (error) => {
-    return {type: clientsLoadErrorType, payload: error}
+    return {type: FETCH_CLIENTS_FAILURE, payload: error}
 };
 
 
