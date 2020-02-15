@@ -63,8 +63,6 @@ class NewClientForm extends Component {
 
     render() {
         let objects;
-        console.log(this.props.objectsInfo);
-
         let serviceObjects = this.props.objectsInfo.filter((obj) => obj.id.toString() === this.props.form.id.toString());
         if (serviceObjects != 0) {
             objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}

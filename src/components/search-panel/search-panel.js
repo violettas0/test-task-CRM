@@ -26,7 +26,13 @@ class SearchPanel extends Component {
     handleSearch = (e) => {
         const searchWord = e.target.value.toLowerCase();
         const filter = this.props.clientsInfo.filter((client) => {
-            return Object.values(client).toString().toLowerCase().includes(searchWord)
+            let serviceObjects = [];
+            for (let object of client.objectsToServe) {
+                serviceObjects = [...serviceObjects, Object.keys(object)]
+            }
+            client = [...Object.values(client), serviceObjects];
+            console.log(client);
+            return client.toString().toLowerCase().includes(searchWord)
         });
         
         this.props.dispatch(search(searchWord, filter))

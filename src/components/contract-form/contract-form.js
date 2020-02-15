@@ -42,7 +42,6 @@ class ContractForm extends Component {
             }
         }
         this.crmService.postObjectsInfo(newData).then(data => this.props.dispatch(objectInfoLoaded(data)));
-        console.log(this.props.objectsInfo);
         this.props.dispatch(objectClose());
         this.props.dispatch(clientClose());
     };

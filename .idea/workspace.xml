@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0df54e87-9c46-4526-8135-8e40ccfab5b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/client-form/client-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/client-form/client-form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/client-list/client-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/client-list/client-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/client/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/client/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract-form/contract-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract-form/contract-form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/new-client-form/new-client-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/new-client-form/new-client-form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/new-contract-form/new-contract-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/new-contract-form/new-contract-form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/contract-form/contract-form-actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/contract-form/contract-form-actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/contract-form/contract-form-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/contract-form/contract-form-reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/contract-form/contract-form-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/contract-form/contract-form-types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/search-panel/search-panel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/search-panel/search-panel.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +90,7 @@
       <workItem from="1581437569798" duration="38503000" />
       <workItem from="1581512034116" duration="276000" />
       <workItem from="1581565802624" duration="63952000" />
-      <workItem from="1581675468367" duration="27768000" />
+      <workItem from="1581675468367" duration="28618000" />
     </task>
     <servers />
   </component>
