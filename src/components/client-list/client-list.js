@@ -96,7 +96,7 @@ const mapStateToProps = (state) => {
         clientId: state.formClients.id,
         filteredInfo: state.search.filteredInfo,
         searching: state.search.search,
-        isNeedToOpen: state.openContract.isNeedToOpen,
+        isNeedToOpenContract: state.openContract.isNeedToOpen,
         contractInfo: state.openContract.contractInfo
     }
 

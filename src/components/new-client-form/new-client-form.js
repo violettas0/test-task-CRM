@@ -16,10 +16,21 @@ import {
 import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
 import {clientsInfoLoaded} from "../../modules/clients-load/clients-load-actions";
+import {objectNew} from "../../modules/contract-form/contract-form-actions";
+import {objectInfoLoaded} from "../../modules/contract-load/contract-load-actions";
 
 
 class NewClientForm extends Component {
     crmService = new CRMService();
+
+    componentDidMount() {
+        this.crmService.getObjectInfo().then(r => this.props.dispatch(objectInfoLoaded(r)));
+    }
+
+    addNewContract = (e) => {
+        this.saveChanges(e);
+        this.props.dispatch(objectNew(this.props.form.id));
+    };
 
     handleCloseButton = () => {
         this.props.dispatch(clientClose());
@@ -29,7 +40,7 @@ class NewClientForm extends Component {
         this.props.dispatch(clientChange(e.target.id, e.target.value))
     };
 
-    saveChanges = (e, id) => {
+    saveChanges = (e) => {
         e.preventDefault();
         let newData = [...this.props.clientsInfo];
         let newClient = {};
@@ -51,6 +62,18 @@ class NewClientForm extends Component {
 
 
     render() {
+        let objects;
+        console.log(this.props.objectsInfo);
+
+        let serviceObjects = this.props.objectsInfo.filter((obj) => obj.id.toString() === this.props.form.id.toString());
+        if (serviceObjects != 0) {
+            objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}
+                                                         data-id={object.contractId}
+                                                         key={Math.floor(Math.random() * 201920)}>{object.type}</li>)
+
+        } else {
+            objects = <li>Добавьте объект обслуживания.</li>
+        }
         return (
             <StyledFieldset className="clientInfo">
                 <StyledForm>
@@ -78,11 +101,12 @@ class NewClientForm extends Component {
                                 value={this.props.additionalInfo}/>
                     <StyledLabel id="service-objects">Список объектов на обслуживание:</StyledLabel>
                     <StyledFormUl>
+                        {objects}
                     </StyledFormUl>
                     <StyledContainerButton>
-                        <StyledButtonAddContract onClick={this.handleButtonClick}>Добавить
+                        <StyledButtonAddContract onClick={(e) => this.addNewContract(e)}>Добавить
                             договор</StyledButtonAddContract>
-                        <StyledButtonSaveChanges onClick={(e) => this.saveChanges(e, this.props.form.id)}>Сохранить
+                        <StyledButtonSaveChanges onClick={(e) => this.saveChanges(e)}>Сохранить
                             изменения</StyledButtonSaveChanges>
                     </StyledContainerButton>
                 </StyledForm>
@@ -94,7 +118,8 @@ class NewClientForm extends Component {
 const mapStateToProps = (state) => {
     return {
         form: state.formClients,
-        clientsInfo: state.loadClients.clientsInfo
+        clientsInfo: state.loadClients.clientsInfo,
+        objectsInfo: state.loadContract.objectsInfo
     }
 };
 

@@ -17,7 +17,7 @@ import withCRMService from "../hoc/with-crm-service";
 import CRMService from "../../services/crm-service";
 import {clientsInfoLoaded} from "../../modules/clients-load/clients-load-actions";
 import {objectInfoLoaded} from "../../modules/contract-load/contract-load-actions";
-import {objectOpen} from "../../modules/contract-form/contract-form-actions";
+import {objectNew, objectOpen} from "../../modules/contract-form/contract-form-actions";
 
 class ClientForm extends Component {
     crmService = new CRMService();
@@ -29,6 +29,10 @@ class ClientForm extends Component {
     openContract = (e) => {
         let object = this.props.objectsInfo.filter((obj) => obj.contractId.toString() === e.target.dataset.id);
         this.props.dispatch(objectOpen(object));
+    };
+
+    addNewContract = () => {
+        this.props.dispatch(objectNew(this.props.clientInfo.id));
     };
 
     handleCloseButton = () => {
@@ -57,10 +61,10 @@ class ClientForm extends Component {
 
     render() {
         let {clientInfo, objectsInfo} = this.props;
+
         let objects;
-        if (objectsInfo) {
-            let serviceObjects = this.props.objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id);
-            console.log(serviceObjects);
+        let serviceObjects = objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id.toString());
+        if (serviceObjects != 0) {
             objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}
                                                          data-id={object.contractId}
                                                          key={Math.floor(Math.random() * 201920)}>{object.type}</li>)
@@ -102,7 +106,7 @@ class ClientForm extends Component {
                         {objects}
                     </StyledFormUl>
                     <StyledContainerButton>
-                        <StyledButtonAddContract onClick={this.handleButtonClick}>Добавить
+                        <StyledButtonAddContract onClick={this.addNewContract}>Добавить
                             договор</StyledButtonAddContract>
                         <StyledButtonSaveChanges onClick={(e) => this.saveChanges(clientInfo.id, e)}>Сохранить
                             изменения</StyledButtonSaveChanges>

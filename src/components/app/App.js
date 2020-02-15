@@ -3,14 +3,14 @@ import {connect} from "react-redux";
 import ClientList from "../client-list";
 import AddClientButton from "../add-client-button";
 import ContractForm from "../contract-form";
+import NewContractForm from "../new-contract-form/new-contract-form";
 
-function App({isNeedToOpen, contractInfo}) {
-    if (isNeedToOpen === true) {
-        return (<div>
-            <ContractForm contractInfo={contractInfo}/>
-        </div>)
+function App({isNeedToOpenContract, isNeedToAddContract, contractInfo}) {
+    if (isNeedToOpenContract === true) {
+        return (<ContractForm contractInfo={contractInfo}/>)
+    } else if (isNeedToAddContract) {
+        return (<NewContractForm/>)
     }
-
     return (
         <div>
             <ClientList/>
@@ -21,7 +21,8 @@ function App({isNeedToOpen, contractInfo}) {
 
 const mapStateToProps = (state) => {
     return {
-        isNeedToOpen: state.openContract.isNeedToOpen,
+        isNeedToOpenContract: state.openContract.isNeedToOpenContract,
+        isNeedToAddContract: state.openContract.isNeedToAddContract,
         contractInfo: state.openContract.contractInfo
     }
 };

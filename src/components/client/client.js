@@ -28,10 +28,9 @@ class Client extends Component {
 
     render() {
         let {clientInfo, objectsInfo} = this.props;
-        console.log(objectsInfo);
         let objects;
-        if (objectsInfo) {
-            let serviceObjects = this.props.objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id);
+        let serviceObjects = objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id.toString());
+        if (serviceObjects) {
             objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}
                                                          data-id={object.contractId}
                                                          key={Math.floor(Math.random() * 201920)}>{object.type}</li>)

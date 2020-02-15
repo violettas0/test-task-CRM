@@ -6,57 +6,100 @@ import {
     StyledLabel,
     StyledForm,
     StyledFieldset,
-    StyledText,
     StyledCloseButton,
-    StyledP
+    StyledP, StyledSelect, StyledContainerButton, StyledButtonSaveChanges
 } from "../styled/styled-form"
-import {objectClose} from "../../modules/contract-form/contract-form-actions";
+import {objectChange, objectClose} from "../../modules/contract-form/contract-form-actions";
+import {objectInfoLoaded} from "../../modules/contract-load/contract-load-actions";
+import CRMService from "../../services/crm-service";
+import withCRMService from "../hoc/with-crm-service";
 
 class NewContractForm extends Component {
+    crmService = new CRMService();
+
+
+    handleChange = (e) => {
+        this.props.dispatch(objectChange(e.target.id, e.target.value))
+    };
+
+    saveChanges = (e) => {
+        e.preventDefault();
+        let newData = [...this.props.objectsInfo];
+        let newObject = {};
+        for (let key in this.props.form) {
+            if (key == "isNeedToOpenContract" || key == "isNeedToAddContract" || key == "contractInfo") {
+                continue
+            }
+            newObject = {...newObject, [key]: this.props.form[key]}
+        }
+        if (Object.entries(newObject).length <= 4) {
+            return console.log('SORRY, CANT ADD SUCH CONTRACT');
+        } else {
+            newData = [...newData, newObject];
+            this.crmService.postObjectsInfo(newData).then(data => this.props.dispatch(objectInfoLoaded(data)));
+        }
+
+    };
+
     closeButton = () => {
         this.props.dispatch(objectClose());
     };
+
     render() {
         return (
             <StyledFieldset>
-                <StyledCloseButton onClick={this.closeButton}>Закрыть</StyledCloseButton>
                 <StyledForm>
+                    <StyledCloseButton onClick={this.closeButton}>Закрыть</StyledCloseButton>
                     <StyledP>Тип объекта обслуживания:</StyledP>
-                    <StyledLabel id="typeOfObjectAuto">Авто</StyledLabel>
-                    <StyledInput id="typeOfObjectAuto" value="auto" type="radio"/>
-                    <StyledLabel id="typeOfObjectRealEstate">Недвижимость</StyledLabel>
-                    <StyledInput id="typeOfObjectRealEstate" value="realEstate" type="radio"/>
+                    <StyledSelect id="type" onChange={this.handleChange}
+                                  value={this.props.form.type || ''}>
+                        <option value="Авто">Авто</option>
+                        <option value="Недвижимость">Недвижимость</option>
+                    </StyledSelect>
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel id="contractId">Номер договора:</StyledLabel>
-                    <StyledInput id="contractId" type="number" value={contractInfo.contractId}/>
+                    <StyledInput onChange={this.handleChange} id="contractId" type="number"
+                                 value={parseInt(this.props.form.contractId || '')}/>
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel>Подключенные услуги:</StyledLabel>
-                    <StyledUl>
-                        {services}
-                    </StyledUl>
+                    <StyledFormUl>
+                        <li>Добавить услуги.</li>
+                    </StyledFormUl>
                 </StyledForm>
                 <StyledP/>
                 <StyledForm>
                     <StyledP>Статус договора:</StyledP>
-                    <StyledLabel id="statusOff">Отключен</StyledLabel>
-                    <StyledInput id="statusOff" type="radio" value=""/>
-                    <StyledLabel id="statusPaid">Оплачен</StyledLabel>
-                    <StyledInput id="statusPaid" type="radio" value=""/>
-                    <StyledLabel id="statusWaiting">Ждёт оплаты</StyledLabel>
-                    <StyledInput id="statusWaiting" type="radio" value=""/>
+                    <StyledSelect id="status" onChange={this.handleChange}
+                                  value={this.props.form.status || ''}>
+                        <option value="Действует">Действует</option>
+                        <option value="Отключен">Отключен</option>
+                        <option value="Ожидает оплаты">Ожидает оплаты</option>
+                    </StyledSelect>
                 </StyledForm>
                 <StyledForm>
                     <StyledLabel id="dateActivate">Дата подключения:</StyledLabel>
-                    <StyledInput id="dateActivate" type="date"/>
+                    <StyledInput onChange={this.handleChange} id="dateActivate" type="date"
+                                 value={this.props.form.dateActivate || ''}/>
                     <StyledLabel id="dateOff">Действует до:</StyledLabel>
-                    <StyledInput id="dateOff" type="date"/>
+                    <StyledInput onChange={this.handleChange} id="dateOff" type="date"
+                                 value={this.props.form.dateOff || ''}/>
                 </StyledForm>
+                <StyledContainerButton>
+                    <StyledButtonSaveChanges onClick={(e) => this.saveChanges(e)}>Сохранить
+                        изменения</StyledButtonSaveChanges>
+                </StyledContainerButton>
             </StyledFieldset>
         )
     }
-
 }
 
-export default connect()(NewContractForm);
+const mapStateToProps = (state) => {
+    return {
+        form: state.openContract,
+        objectsInfo: state.loadContract.objectsInfo
+    }
+};
+
+export default withCRMService(connect(mapStateToProps)(NewContractForm));
