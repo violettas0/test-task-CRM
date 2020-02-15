@@ -4,6 +4,4 @@ const objectInfoLoaded = (objs) => {
     return {type: FETCH_OBJECTS_SUCCESS, payload: objs};
 };
 
-
-
 export { objectInfoLoaded }

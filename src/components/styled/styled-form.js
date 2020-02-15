@@ -114,14 +114,34 @@ const StyledCloseButton = styled.button`
   cursor: pointer;
   position: absolute;
   right: -3px;
-  top: -6px;
+  top: -19px;
   padding: 0;
   margin: 0;
   width: 12px;
   height: 12px;
   border: none;
-  background-image: url(${Close});
   background-color: transparent;
+  &:before {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 3px;
+    background-color: #e8e8e8;
+    transform: rotate(45deg);
+  }
+  &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 3px;
+    background-color: #e8e8e8;
+    transform: rotate(-45deg);
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const StyledP = styled.p`
@@ -178,6 +198,18 @@ const StyledContainerButton = styled.div`
   justify-content: space-between;
 `;
 
+const StyledSelect = styled.select`
+  display: inline-block;
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #000000;
+  background-color: transparent;
+  border: 3px solid #f1f1f1;
+  word-break: break-word;
+  width: fit-content;
+`;
+
 export {
     StyledInput,
     StyledFormUl,
@@ -189,5 +221,6 @@ export {
     StyledP,
     StyledButtonAddContract,
     StyledButtonSaveChanges,
-    StyledContainerButton
+    StyledContainerButton,
+    StyledSelect
 }

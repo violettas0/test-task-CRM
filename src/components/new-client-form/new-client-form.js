@@ -44,7 +44,7 @@ class NewClientForm extends Component {
         } else {
             newData = [...newData, newClient];
             this.props.dispatch(clientClose());
-            this.crmService.postJSON(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
+            this.crmService.postClientsInfo(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
         }
 
     };

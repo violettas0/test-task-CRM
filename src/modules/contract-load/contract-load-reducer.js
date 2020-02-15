@@ -5,7 +5,7 @@ const initialState = {
 export default function contractLoadReducer(state = initialState, action)  {
     switch (action.type) {
         case "FETCH_OBJECTS_SUCCESS":
-            return {...state,
+            return {
                 objectsInfo: action.payload,
             };
         default:

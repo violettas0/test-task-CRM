@@ -10,6 +10,7 @@ app.use(pino);
 app.use(express.json());
 
 let clients = fs.readFileSync('server/clients.json', "utf8");
+let objects = fs.readFileSync('server/service-objects.json', "utf8");
 
 app.get('/api/clients', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -18,18 +19,18 @@ app.get('/api/clients', (req, res) => {
 
 app.get('/api/objects', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    res.send(fs.readFileSync('server/service-objects.json'));
+    res.send(objects);
 });
 
-
-app.get('/', function(req, res){
-    res.render('form');
-    res.sendFile("index.html");
-});
 
 app.post('/api/clients', (req, res) => {
     clients = req.body;
     res.send(clients);
+});
+
+app.post('/api/objects', (req, res) => {
+    objects = req.body;
+    res.send(objects);
 });
 
 

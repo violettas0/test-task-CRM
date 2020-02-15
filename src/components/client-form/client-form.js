@@ -27,13 +27,14 @@ class ClientForm extends Component {
     }
 
     openContract = (e) => {
-        let object = this.props.objects.filter((obj) => obj.contractId.toString() === e.target.dataset.id);
+        let object = this.props.objectsInfo.filter((obj) => obj.contractId.toString() === e.target.dataset.id);
         this.props.dispatch(objectOpen(object));
     };
 
     handleCloseButton = () => {
         this.props.dispatch(clientClose());
     };
+
     handleChange = (e) => {
         this.props.dispatch(clientChange(e.target.id, e.target.value))
     };
@@ -50,13 +51,21 @@ class ClientForm extends Component {
                 })
             }
         }
-        this.crmService.postJSON(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
+        this.crmService.postClientsInfo(newData).then(data => this.props.dispatch(clientsInfoLoaded(data)));
+        this.props.dispatch(clientClose());
     };
 
     render() {
-        let {clientInfo} = this.props;
+        let {clientInfo, objectsInfo} = this.props;
         let objects;
-        if (clientInfo.objectsToServe) {
+        if (objectsInfo) {
+            let serviceObjects = this.props.objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id);
+            console.log(serviceObjects);
+            objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}
+                                                         data-id={object.contractId}
+                                                         key={Math.floor(Math.random() * 201920)}>{object.type}</li>)
+
+        } else if (clientInfo.objectsToServe) {
             objects = clientInfo.objectsToServe.map((object) => <li onClick={(e) => this.openContract(e)}
                                                                     data-id={Object.values(object)[0]}
                                                                     key={Math.floor(Math.random() * 201920)}>{Object.keys(object)[0]}</li>)
@@ -109,7 +118,8 @@ const mapStateToProps = (state) => {
     return {
         form: state.formClients,
         clientsInfo: state.loadClients.clientsInfo,
-        objects: state.loadContract.objectsInfo
+        loadContract: state.loadContract,
+        objectsInfo: state.loadContract.objectsInfo
     }
 };
 

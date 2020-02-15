@@ -16,8 +16,8 @@ export default class CRMService {
         const url = `api/objects`;
         return await CRMService.getJSON(url)
     }
-    async postJSON(data) {
-        const response = await fetch(`/api/clients`, {
+    static async postJSON(data, url) {
+        const response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -25,5 +25,14 @@ export default class CRMService {
             }
         });
         return await response.json();
+    }
+    async postClientsInfo(data) {
+        const url = `api/clients`;
+        return await CRMService.postJSON(data, url)
+    }
+
+    async postObjectsInfo(data) {
+        const url = `api/objects`;
+        return await CRMService.postJSON(data, url)
     }
 }
