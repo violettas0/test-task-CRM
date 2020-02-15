@@ -31,13 +31,11 @@ class Client extends Component {
         let objects;
         let serviceObjects = objectsInfo.filter((obj) => obj.id.toString() === clientInfo.id.toString());
         if (serviceObjects) {
-            objects = serviceObjects.map((object) => <li onClick={(e) => this.openContract(e)}
-                                                         data-id={object.contractId}
+            objects = serviceObjects.map((object) => <li data-id={object.contractId}
                                                          key={Math.floor(Math.random() * 201920)}>{object.type}</li>)
 
         } else if (clientInfo.objectsToServe) {
-            objects = clientInfo.objectsToServe.map((object) => <li onClick={(e) => this.openContract(e)}
-                                                                    data-id={Object.values(object)[0]}
+            objects = clientInfo.objectsToServe.map((object) => <li data-id={Object.values(object)[0]}
                                                                     key={Math.floor(Math.random() * 201920)}>{Object.keys(object)[0]}</li>)
         } else {
             objects = <li>Добавьте объект обслуживания.</li>
